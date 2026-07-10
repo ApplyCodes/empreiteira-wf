@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Empreiteira WF | Construção e Reformas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --steel:#2C6E9E;
+    --steel-2:#184D73;
+    --silver-blue:#9FC1D6;
+    --ice-1:#EFF6FA;
+    --ice-2:#D2E6F0;
+    --white:#FFFFFF;
+    --ink:#1B2B3A;
+    --ink-soft:#51697D;
+    --ok:#2E8B6B;
+    --bad:#C0503B;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:linear-gradient(160deg, var(--white) 0%, var(--ice-1) 45%, var(--ice-2) 100%);
+    background-attachment:fixed;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{display:block; max-width:100%;}
+  a{color:inherit; text-decoration:none;}
+  .serif{font-family:'Cormorant Garamond', serif;}
+  .wrap{max-width:1140px; margin:0 auto; padding:0 24px;}
+  .eyebrow{
+    font-size:12px; letter-spacing:.22em; text-transform:uppercase;
+    font-weight:700; color:var(--steel);
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    background:rgba(255,255,255,.85); backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(44,110,158,.15);
+  }
+  .nav-inner{
+    max-width:1140px; margin:0 auto; padding:14px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand-mark{width:34px; height:34px;}
+  .brand-name{font-family:'Cormorant Garamond',serif; font-weight:600; font-size:20px; color:var(--ink); letter-spacing:.02em;}
+  .brand-name b{color:var(--steel); font-style:italic; font-weight:600;}
+  .nav-links{display:flex; gap:32px; font-size:14px; color:var(--ink-soft);}
+  .nav-links a:hover{color:var(--steel);}
+  .nav-cta{
+    background:var(--steel); color:#fff; font-weight:600; font-size:14px;
+    padding:9px 18px; border-radius:3px; white-space:nowrap;
+  }
+  .nav-cta:hover{background:var(--steel-2);}
+  @media (max-width:760px){ .nav-links{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; overflow:hidden;
+    padding:150px 0 0;
+    color:var(--ink);
+  }
+  .blueprint{
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(44,110,158,.09) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(44,110,158,.09) 1px, transparent 1px);
+    background-size:42px 42px;
+    mask-image:radial-gradient(ellipse at 30% 20%, black 20%, transparent 75%);
+  }
+  .hero-inner{position:relative; z-index:2; text-align:left; max-width:640px; padding-bottom:70px;}
+  .hero-eyebrow{display:flex; align-items:center; gap:10px; margin-bottom:22px;}
+  .hero-eyebrow .line{width:36px; height:1px; background:var(--steel);}
+  .hero h1{
+    font-family:'Cormorant Garamond',serif; font-weight:600;
+    font-size:clamp(38px,6vw,62px); line-height:1.06; letter-spacing:-.01em;
+    color:var(--ink);
+  }
+  .hero h1 em{font-style:italic; color:var(--steel); font-weight:600;}
+  .hero p.lead{
+    margin-top:22px; font-size:17px; color:var(--ink-soft); max-width:480px;
+  }
+  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap; margin-top:34px;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 26px; border-radius:3px; font-weight:600; font-size:14.5px;
+    letter-spacing:.01em; transition:all .15s ease;
+  }
+  .btn-primary{background:var(--steel); color:#fff;}
+  .btn-primary:hover{background:var(--steel-2); transform:translateY(-1px);}
+  .btn-ghost{border:1px solid rgba(44,110,158,.4); color:var(--steel-2);}
+  .btn-ghost:hover{border-color:var(--steel); background:rgba(44,110,158,.06);}
+  .hero-tags{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:40px;}
+  .hero-tags span{
+    font-size:12.5px; color:var(--ink-soft); letter-spacing:.04em;
+    padding-left:14px; position:relative;
+  }
+  .hero-tags span::before{
+    content:''; position:absolute; left:0; top:6px; width:6px; height:6px;
+    background:var(--steel); border-radius:50%;
+  }
+
+  /* skyline signature */
+  .skyline{position:relative; z-index:1; width:100%; height:auto; display:block;}
+  .skyline-wrap{position:relative; margin-top:20px;}
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{padding:96px 0;}
+  .sec-head{max-width:620px; margin-bottom:56px;}
+  .sec-head h2{
+    font-family:'Cormorant Garamond',serif; font-weight:600;
+    font-size:clamp(30px,4vw,42px); margin-top:14px; line-height:1.12;
+    color:var(--ink);
+  }
+  .sec-head h2 em{color:var(--steel); font-style:italic;}
+  .sec-head p{margin-top:16px; color:var(--ink-soft); font-size:15.5px;}
+
+  /* ---------- SERVICES ---------- */
+  .services-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:22px;
+  }
+  .service-card{
+    background:#fff; border:1px solid #D6E3EC; border-radius:6px;
+    padding:28px 26px; position:relative; overflow:hidden;
+    box-shadow:0 4px 20px rgba(44,110,158,.05);
+  }
+  .service-card::before{
+    content:''; position:absolute; top:0; left:0; width:100%; height:3px;
+    background:linear-gradient(90deg,var(--steel),var(--silver-blue));
+  }
+  .service-top{display:flex; align-items:center; gap:12px; margin-bottom:16px;}
+  .service-icon{
+    width:38px; height:38px; border-radius:50%;
+    background:var(--steel); display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .service-icon svg{width:19px; height:19px;}
+  .service-card h3{font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:600; color:var(--ink);}
+  .compare{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px;}
+  .compare-col p.label{font-size:11px; letter-spacing:.08em; text-transform:uppercase; font-weight:700; margin-bottom:8px;}
+  .compare-col.good p.label{color:var(--ok);}
+  .compare-col.bad p.label{color:var(--bad);}
+  .compare ul{list-style:none; font-size:13.5px; color:var(--ink-soft);}
+  .compare ul li{position:relative; padding-left:18px; margin-bottom:7px;}
+  .compare-col.good li::before{content:'✓'; position:absolute; left:0; color:var(--ok); font-weight:700;}
+  .compare-col.bad li::before{content:'✕'; position:absolute; left:0; color:var(--bad); font-weight:700;}
+
+  /* ---------- SPLIT (residencial/comercial) ---------- */
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:0;}
+  @media (max-width:820px){ .split{grid-template-columns:1fr;} }
+  .split-panel{
+    position:relative; padding:70px 44px; min-height:340px;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    overflow:hidden;
+  }
+  .split-panel.res{background:linear-gradient(160deg,var(--white),var(--ice-1) 75%); border-right:1px solid #D2E6F0;}
+  .split-panel.com{background:linear-gradient(160deg,var(--ice-1),var(--ice-2) 75%);}
+  .split-panel .panel-deco{position:absolute; right:26px; top:26px; opacity:.5;}
+  .split-panel .panel-eyebrow{color:var(--steel); font-size:12px; letter-spacing:.2em; text-transform:uppercase; margin-bottom:10px; font-weight:700;}
+  .split-panel h3{
+    font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:600;
+    font-size:clamp(30px,3.4vw,44px); color:var(--steel-2);
+  }
+  .split-panel p{color:var(--ink-soft); font-size:14.5px; margin-top:14px; max-width:340px;}
+  .split-panel a.link{
+    display:inline-flex; align-items:center; gap:8px; margin-top:22px;
+    font-size:13.5px; font-weight:600; color:var(--steel-2); border-bottom:1px solid rgba(24,77,115,.4);
+    padding-bottom:2px; width:max-content;
+  }
+
+  /* ---------- PROCESS ---------- */
+  .process{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:30px;}
+  .step{position:relative; padding-left:2px;}
+  .step-num{
+    font-family:'Cormorant Garamond',serif; font-size:44px; font-weight:600;
+    color:transparent; -webkit-text-stroke:1.4px var(--steel); line-height:1;
+  }
+  .step h4{margin-top:14px; font-size:16.5px; font-weight:700; color:var(--ink);}
+  .step p{margin-top:8px; font-size:14px; color:var(--ink-soft);}
+
+  /* ---------- FINAL CTA ---------- */
+  .cta-band{
+    background:linear-gradient(120deg,var(--ice-1),var(--ice-2));
+    border-top:1px solid #D2E6F0; border-bottom:1px solid #D2E6F0;
+    color:var(--ink); padding:80px 0; text-align:center; position:relative; overflow:hidden;
+  }
+  .cta-band .eyebrow{justify-content:center; display:flex;}
+  .cta-band h2{
+    font-family:'Cormorant Garamond',serif; font-weight:600; font-style:italic;
+    font-size:clamp(28px,4vw,40px); margin-top:14px; color:var(--steel-2);
+    max-width:640px; margin-left:auto; margin-right:auto;
+  }
+  .cta-band p{color:var(--ink-soft); margin-top:16px; font-size:15.5px;}
+  .cta-band .btn{margin-top:30px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:#fff; color:var(--ink-soft); padding:52px 0 28px; font-size:13.5px; border-top:1px solid #D2E6F0;}
+  .foot-grid{display:flex; flex-wrap:wrap; justify-content:space-between; gap:32px; padding-bottom:34px; border-bottom:1px solid #E4EEF3;}
+  .foot-brand{display:flex; align-items:center; gap:10px;}
+  .foot-brand .brand-name{color:var(--ink);}
+  .foot-col h5{color:var(--ink); font-size:12px; letter-spacing:.12em; text-transform:uppercase; margin-bottom:12px;}
+  .foot-col a{display:block; margin-bottom:8px; color:var(--ink-soft);}
+  .foot-col a:hover{color:var(--steel);}
+  .foot-bottom{padding-top:22px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12.5px; color:#7E93A3;}
+
+  /* whatsapp floating button */
+  .wa-float{
+    position:fixed; bottom:22px; right:22px; z-index:60;
+    background:#25D366; width:56px; height:56px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 8px 24px rgba(0,0,0,.18);
+  }
+  .wa-float svg{width:28px; height:28px;}
+
+  @media (max-width:600px){
+    .section{padding:64px 0;}
+    .hero{padding-top:120px;}
+    .split-panel{padding:50px 26px;}
+    .split-panel.res{border-right:none; border-bottom:1px solid #D2E6F0;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <img class="brand-mark" src="logo-wf-oficial.png" alt="Empreiteira WF">
+    </div>
+    <div class="nav-links">
+      <a href="#servicos">Serviços</a>
+      <a href="#areas">Residencial &amp; Comercial</a>
+      <a href="#processo">Como funciona</a>
+    </div>
+    <a class="nav-cta" href="https://wa.me/5511954962422?text=Ol%C3%A1!%20Quero%20solicitar%20um%20or%C3%A7amento." target="_blank" rel="noopener">Orçamento</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="blueprint"></div>
+  <div class="wrap">
+    <div class="hero-inner">
+      <img src="logo-wf-oficial.png" alt="Empreiteira WF" style="width:84px; height:84px; margin-bottom:26px; border-radius:8px;">
+      <div class="hero-eyebrow"><span class="line"></span><span class="eyebrow">Construção &amp; Reformas</span></div>
+      <h1>Sua obra planejada com a <em>precisão</em> de quem entende do assunto.</h1>
+      <p class="lead">Revestimento, pintura, drywall, hidráulica e gesso — do orçamento ao acabamento, acompanhados de perto, sem imprevistos no caminho.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="https://wa.me/5511954962422?text=Ol%C3%A1!%20Quero%20solicitar%20um%20or%C3%A7amento." target="_blank" rel="noopener">
+          Solicitar orçamento no WhatsApp
+        </a>
+        <a class="btn btn-ghost" href="#servicos">Ver serviços</a>
+      </div>
+      <div class="hero-tags">
+        <span>Revestimento</span><span>Pintura</span><span>Drywall</span><span>Hidráulica</span><span>Gesso</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- skyline signature graphic -->
+  <div class="skyline-wrap">
+    <svg class="skyline" viewBox="0 0 1200 160" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#9FC1D6"/>
+          <stop offset="1" stop-color="#2C6E9E"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="70" width="90" height="90" fill="url(#skyGrad)"/>
+      <rect x="100" y="40" width="70" height="120" fill="url(#skyGrad)"/>
+      <rect x="180" y="90" width="60" height="70" fill="url(#skyGrad)"/>
+      <rect x="255" y="20" width="85" height="140" fill="url(#skyGrad)"/>
+      <polygon points="255,20 297.5,-15 340,20" fill="#184D73"/>
+      <rect x="355" y="60" width="55" height="100" fill="url(#skyGrad)"/>
+      <rect x="425" y="95" width="75" height="65" fill="url(#skyGrad)"/>
+      <rect x="515" y="10" width="60" height="150" fill="url(#skyGrad)"/>
+      <rect x="590" y="50" width="90" height="110" fill="url(#skyGrad)"/>
+      <rect x="695" y="85" width="55" height="75" fill="url(#skyGrad)"/>
+      <rect x="765" y="30" width="70" height="130" fill="url(#skyGrad)"/>
+      <rect x="850" y="65" width="60" height="95" fill="url(#skyGrad)"/>
+      <rect x="925" y="15" width="80" height="145" fill="url(#skyGrad)"/>
+      <polygon points="925,15 965,-20 1005,15" fill="#184D73"/>
+      <rect x="1020" y="55" width="65" height="105" fill="url(#skyGrad)"/>
+      <rect x="1100" y="90" width="70" height="70" fill="url(#skyGrad)"/>
+      <rect x="0" y="140" width="1200" height="20" fill="#2C6E9E" opacity="0.9"/>
+    </svg>
+  </div>
+</header>
+
+<!-- SERVICES -->
+<section class="section" id="servicos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">O que fazemos</span>
+      <h2>Cinco frentes, <em>um só padrão</em> de acabamento.</h2>
+      <p>Cada etapa da obra tem um jeito certo de ser feita — e um custo real quando não é. Veja o que muda em cada serviço.</p>
+    </div>
+
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-top">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M4 10h16M10 4v16"/></svg></div>
+          <h3>Revestimento</h3>
+        </div>
+        <div class="compare">
+          <div class="compare-col good">
+            <p class="label">Com qualidade</p>
+            <ul><li>Protege contra mofo e bolor</li><li>Aumenta a durabilidade</li><li>Melhora o isolamento térmico</li></ul>
+          </div>
+          <div class="compare-col bad">
+            <p class="label">Sem cuidado</p>
+            <ul><li>Proliferação de mofo</li><li>Infiltrações e danos nas paredes</li><li>Desvalorização do imóvel</li></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-top">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M4 20l3-3M14 4l6 6-9 9H5v-6z"/></svg></div>
+          <h3>Pintura</h3>
+        </div>
+        <div class="compare">
+          <div class="compare-col good">
+            <p class="label">Boa pintura</p>
+            <ul><li>Protege contra mofo e infiltrações</li><li>Valoriza e moderniza o ambiente</li><li>Durabilidade nas superfícies</li></ul>
+          </div>
+          <div class="compare-col bad">
+            <p class="label">Pintura ruim</p>
+            <ul><li>Aparecimento de mofo e bolor</li><li>Infiltrações e rachaduras</li><li>Aparência envelhecida</li></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-top">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 10h18M9 4v16M15 4v16"/></svg></div>
+          <h3>Drywall</h3>
+        </div>
+        <div class="compare">
+          <div class="compare-col good">
+            <p class="label">Vantagens</p>
+            <ul><li>Execução rápida e limpa</li><li>Isolamento acústico e térmico</li><li>Acabamento moderno</li></ul>
+          </div>
+          <div class="compare-col bad">
+            <p class="label">Sem drywall</p>
+            <ul><li>Obras mais lentas e barulhentas</li><li>Menor geração de sujeira e entulho</li><li>Menos flexibilidade para reformas</li></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-top">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M12 3s6 6.5 6 11a6 6 0 1 1-12 0c0-4.5 6-11 6-11z"/></svg></div>
+          <h3>Hidráulica</h3>
+        </div>
+        <div class="compare">
+          <div class="compare-col good">
+            <p class="label">Bem executada</p>
+            <ul><li>Evita vazamentos e infiltrações</li><li>Garante pressão adequada</li><li>Reduz custos com manutenção</li></ul>
+          </div>
+          <div class="compare-col bad">
+            <p class="label">Mal instalada</p>
+            <ul><li>Vazamentos e infiltrações</li><li>Danos em paredes e pisos</li><li>Aumento na conta de água</li></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card">
+        <div class="service-top">
+          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
+          <h3>Gesso</h3>
+        </div>
+        <div class="compare">
+          <div class="compare-col good">
+            <p class="label">De qualidade</p>
+            <ul><li>Acabamento fino e sofisticado</li><li>Isolamento térmico e acústico</li><li>Valorização do ambiente</li></ul>
+          </div>
+          <div class="compare-col bad">
+            <p class="label">Sem gesso</p>
+            <ul><li>Acabamento irregular e inferior</li><li>Menor eficiência térmica</li><li>Ambiente com aparência simples</li></ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="service-card" style="display:flex; flex-direction:column; justify-content:center; align-items:flex-start; background:linear-gradient(160deg,var(--ice-1),var(--ice-2));">
+        <p class="eyebrow">Não sabe por onde começar?</p>
+        <h3 class="serif" style="color:var(--ink); font-size:24px; margin-top:10px;">Conte o que precisa e a gente monta o plano de obra pra você.</h3>
+        <a class="btn btn-primary" style="margin-top:20px;" href="https://wa.me/5511954962422?text=Ol%C3%A1!%20Quero%20solicitar%20um%20or%C3%A7amento." target="_blank" rel="noopener">Falar no WhatsApp</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RESIDENCIAL / COMERCIAL -->
+<section id="areas">
+  <div class="split">
+    <div class="split-panel res">
+      <svg class="panel-deco" width="70" height="70" viewBox="0 0 70 70" fill="none"><path d="M10 60V30L35 12L60 30V60" stroke="#9FC1D6" stroke-width="2"/><path d="M28 60V42H42V60" stroke="#9FC1D6" stroke-width="2"/></svg>
+      <span class="panel-eyebrow">Soluções completas</span>
+      <h3 class="serif">Residenciais</h3>
+      <p>Cada etapa cuidada com qualidade, segurança e reformas personalizadas que transformam sua casa.</p>
+      <a class="link" href="https://wa.me/5511954962422?text=Quero%20um%20or%C3%A7amento%20para%20reforma%20residencial." target="_blank" rel="noopener">Orçar reforma residencial →</a>
+    </div>
+    <div class="split-panel com">
+      <svg class="panel-deco" width="70" height="70" viewBox="0 0 70 70" fill="none"><rect x="14" y="10" width="42" height="50" stroke="#9FC1D6" stroke-width="2"/><path d="M22 20h8M40 20h8M22 32h8M40 32h8M22 44h8M40 44h8" stroke="#9FC1D6" stroke-width="2"/></svg>
+      <span class="panel-eyebrow">Soluções completas</span>
+      <h3 class="serif">Comerciais</h3>
+      <p>Ambientes funcionais e modernos, com instalações de alto padrão de acabamento para valorizar seu negócio.</p>
+      <a class="link" href="https://wa.me/5511954962422?text=Quero%20um%20or%C3%A7amento%20para%20obra%20comercial." target="_blank" rel="noopener">Orçar obra comercial →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESSO -->
+<section class="section" id="processo">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Como funciona</span>
+      <h2>Do primeiro contato ao <em>acabamento final</em>.</h2>
+    </div>
+    <div class="process">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h4>Fale pelo WhatsApp</h4>
+        <p>Conte o que precisa: tipo de obra, ambiente e prazo desejado.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h4>Avaliação do projeto</h4>
+        <p>Levantamento dos serviços necessários — revestimento, pintura, drywall, hidráulica ou gesso.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h4>Orçamento detalhado</h4>
+        <p>Você recebe um orçamento online, sem compromisso, com escopo e prazos claros.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h4>Execução acompanhada</h4>
+        <p>Obra conduzida com acompanhamento direto até a entrega do acabamento.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-band">
+  <div class="wrap">
+    <span class="eyebrow">Orçamento online</span>
+    <h2>Vamos colocar sua obra no papel — e depois de pé.</h2>
+    <p>Resposta rápida pelo WhatsApp, sem compromisso.</p>
+    <a class="btn btn-primary" href="https://wa.me/5511954962422?text=Ol%C3%A1!%20Quero%20solicitar%20um%20or%C3%A7amento." target="_blank" rel="noopener">Solicitar orçamento agora</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">
+          <img class="brand-mark" src="logo-wf-oficial.png" alt="Empreiteira WF">
+          <div class="brand-name">Empreiteira WF</div>
+        </div>
+        <p style="max-width:260px; margin-top:14px;">Construção e reformas residenciais e comerciais. Wesley Sena.</p>
+      </div>
+      <div class="foot-col">
+        <h5>Serviços</h5>
+        <a href="#servicos">Revestimento</a>
+        <a href="#servicos">Pintura</a>
+        <a href="#servicos">Drywall</a>
+        <a href="#servicos">Hidráulica</a>
+        <a href="#servicos">Gesso</a>
+      </div>
+      <div class="foot-col">
+        <h5>Contato</h5>
+        <a href="https://wa.me/5511954962422" target="_blank" rel="noopener">(11) 95496-2422</a>
+        <a href="https://instagram.com/empreiteirawfoficial" target="_blank" rel="noopener">@empreiteirawfoficial</a>
+        <a href="https://empreiteirawf.com.br" target="_blank" rel="noopener">empreiteirawf.com.br</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Empreiteira WF. Todos os direitos reservados.</span>
+      <span>Orçamento online, sem compromisso.</span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/5511954962422?text=Ol%C3%A1!%20Quero%20solicitar%20um%20or%C3%A7amento." target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" fill="#fff"><path d="M17.5 14.4c-.3-.1-1.6-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.5.1-1.5-.7-2.5-1.3-3.5-3-.3-.5.3-.5.7-1.6.1-.2 0-.4 0-.5-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.6-.7 1.9-1.3.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.7 1.5 5.3L2 22l4.8-1.3C8.3 21.5 10.1 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.2.9.9-3.1-.2-.3C3.5 14.4 3 12.7 3 11 3 6.6 6.6 3 11 3s8 3.6 8 8-3.6 9-9 9z" fill-rule="evenodd"/></svg>
+</a>
+
+</body>
+</html>
